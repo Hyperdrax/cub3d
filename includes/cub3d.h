@@ -2,12 +2,17 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
 typedef struct s_player
 {
 	int		x;
 	int		y;
 	char	direction;
-
 }		t_player;
 
 typedef struct s_rgb
