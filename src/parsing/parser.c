@@ -1,6 +1,11 @@
 //42-Header
 #include "cub3d.h"
 
+/**
+ * Open the file with the given name and return its file descriptor
+ * @param cub_name The name of the file to open
+ * @return The file descriptor of the opened file, or -1 if an error occurred
+ */
 int	open_file(char *cub_name)
 {
 	int	fd;

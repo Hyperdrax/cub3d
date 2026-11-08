@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include "libft/libft.h"
+
 
 typedef struct s_player
 {
