@@ -8,12 +8,12 @@
  * @return 1 if the file has the correct ending (.cub)
  *		   0 otherwise
  */
-int	check_extention(char *cub_name)
+int	check_extension(char *cub_name)
 {
 	int	len;
 
 	len = ft_strlen(cub_name);
-	if (ft_strncmp(cub_name + len - 4, ".cub", 4) != 0)
+	if (ft_strncmp(cub_name + len - 4, ".cub", 5) != 0)
 		return (0);
 	return (1);
 }

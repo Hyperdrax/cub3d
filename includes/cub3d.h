@@ -38,4 +38,15 @@ typedef struct s_data
 	t_rgb		ceiling_color;
 }		t_data;
 
+
+// main.c
+
+//parsing
+	//parser.c
+int	parser(char *cub_name, t_data *data);
+int	open_file(char *cub_name);
+//checker
+	//check.c
+int	check_extension(char *cub_name);
+
 #endif
