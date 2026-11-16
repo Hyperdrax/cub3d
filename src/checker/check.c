@@ -13,6 +13,8 @@ int	check_extension(char *cub_name)
 	int	len;
 
 	len = ft_strlen(cub_name);
+	if (len < 5)
+		return (0);
 	if (ft_strncmp(cub_name + len - 4, ".cub", 5) != 0)
 		return (0);
 	return (1);

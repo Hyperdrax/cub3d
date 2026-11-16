@@ -13,7 +13,7 @@ int	open_file(char *cub_name)
 	fd = open(cub_name, O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Error");
+		perror("Error\nOpening file failed\n");
 		return (-1);
 	}
 	return (fd);
