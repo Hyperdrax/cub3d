@@ -27,6 +27,8 @@ static char	identify_type(char **line)
 	if (*ptr != 'F' && *ptr != 'C')
 		return (0);
 	type = *ptr;
+	if (!ft_isspace(ptr[1]))
+		return (0);
 	ptr++;
 	*line = ptr;
 	return (type);
