@@ -1,4 +1,4 @@
-//42-Header
+// 42-Header
 
 #include "cub3d.h"
 
@@ -57,7 +57,7 @@ static int	count_commas(char *str)
  * Checks if the RGB value are in the range (0-255).
  * Returns 1 if any value is out of range, 0 otherwise.
  */
-static int	check_range(int color[3])
+static t_error_code	check_range(int color[3])
 {
 	int	i;
 
@@ -65,10 +65,10 @@ static int	check_range(int color[3])
 	while (i < 3)
 	{
 		if (color[i] < 0 || color[i] > 255)
-			return (1);
+			return (ERR_RGB_RANGE);
 		i++;
 	}
-	return (0);
+	return (ERR_OK);
 }
 
 /**
@@ -105,41 +105,44 @@ static int	parse_component(char *split, int *value)
  * If number of components is not 3 or any component is invalid returns 1 (error).
  * Otherwise, stores RGB values in the color array and returns 0 (success).
  */
-static int	parse_rgb(char *line, int color[3])
+static t_error_code	parse_rgb(char *line, int color[3])
 {
-	char	**splits;
-	int		i;
-	int		ret;
+	char			**splits;
+	int				i;
+	t_error_code	ret;
 
 	if (count_commas(line) != 2)
-		return (1);
+		return (ERR_INVALID_RGB);
 	splits = ft_split(line, ',');
 	if (!splits)
-		return (1);
-	ret = 0;
+		return (ERR_ALLOC);
+	ret = ERR_OK;
 	i = 0;
-	while (i < 3 && ret == 0)
+	while (i < 3 && ret == ERR_OK)
 	{
 		if (!splits[i] || parse_component(splits[i], &color[i]))
-			ret = 1;
+			ret = ERR_INVALID_RGB;
 		i++;
 	}
 	free_split(splits);
 	return (ret);
 }
 
-int	parse_f_c_color(char *line, t_data *data)
+t_error_code	parse_f_c_color(char *line, t_data *data)
 {
-	char	type;
-	int		color[3];
+	char			type;
+	int				color[3];
+	t_error_code	status;
 
 	type = identify_type(&line);
 	if (!type)
-		return (print_error("Invalid color line: expected 'F' or 'C'"));
-	if (parse_rgb(line, color))
-		return (print_error("Invalid RGB format (expected R,G,B)"));
-	if (check_range(color))
-		return (print_error("RGB values must be between 0 and 255"));
+		return (ERR_INVALID_COLOR_LINE);
+	status = parse_rgb(line, color);
+	if (status != ERR_OK)
+		return (status);
+	status = check_range(color);
+	if (status != ERR_OK)
+		return (status);
 	if (type == 'F')
 	{
 		data->floor_color.r = color[0];
@@ -152,5 +155,5 @@ int	parse_f_c_color(char *line, t_data *data)
 		data->ceiling_color.g = color[1];
 		data->ceiling_color.b = color[2];
 	}
-	return (0);
+	return (ERR_OK);
 }
