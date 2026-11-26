@@ -15,7 +15,12 @@ int	print_error(char *error_msg)
 	return (1);
 }
 
-char	*error_messages(t_error_code err_code)
+/**
+ * Returns the error message corresponding to the given error code.
+ * @param err_code The error code for which to set the error message
+ * @return The error message corresponding to the given error code
+ */
+static const char	*error_messages(t_error_code err_code)
 {
 	static const char	*msg[] = {
 		"Success",
@@ -45,8 +50,17 @@ char	*error_messages(t_error_code err_code)
 	return (msg[err_code]);
 }
 
+/**
+ * Handles the error based on the given error code.
+ * If the error code is ERR_OK, returns 0 (no error).
+ * Otherwise, prints the corresponding error message and returns 1 (error).
+ * @param err_code The error code to handle
+ * @return 0 if no error, 1 if an error occurred
+ */
 int	err_handler(t_error_code err_code)
 {
+	if (err_code == ERR_OK)
+		return (0);
 	print_error(error_messages(err_code));
 	return (1);
 }
